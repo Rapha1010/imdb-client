@@ -4,18 +4,18 @@
 
 import { HttpHeaders } from "@angular/common/http";
 
-export const environment = {
+export const environment = (token?: string) => ({
 	production: false,
 	oidcUrl: '',
 	oidcClientId: '',
 	apiUrl: 'http://localhost:8087',
-	httpOptions : {
-		headers: new HttpHeaders({
-			'Content-Type':  'application/json',
-			'Authorization': 'Basic ' + btoa('link:hyruleAdventure')
-		})
-	  }
-};
+	httpOptions: {
+	  headers: new HttpHeaders({
+		'Content-Type': 'application/json',
+		'Authorization': `Bearer ${token}`
+	  })
+	}
+  });
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

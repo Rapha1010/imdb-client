@@ -15,33 +15,22 @@ export class MovieService {
     private httpClient: HttpClient) { }
 
   postCreateMovie = (movieModel: MovieModel, token:any) => {
-    return this.httpClient.post(environment.apiUrl + "/movies/", movieModel, this.settingHeader(token).httpOptions);
+    return this.httpClient.post(environment().apiUrl + "/movies/", movieModel, environment(token).httpOptions);
   }
 
   postMovieScore = (movieScore: MovieScoreDto, movieId: string, token:any) => {
-    return this.httpClient.post(environment.apiUrl + `/movies/vote/${movieId}`, movieScore, this.settingHeader(token).httpOptions);
+    return this.httpClient.post(environment().apiUrl + `/movies/vote/${movieId}`, movieScore, environment(token).httpOptions);
   }
 
   getAllMovies = (token:any) => {
-    return this.httpClient.get<MovieDto>(environment.apiUrl + "/movies", this.settingHeader(token).httpOptions);
+    return this.httpClient.get<MovieDto>(environment().apiUrl + "/movies");
   }
 
   putMovieById = (movieModel: MovieModel, movieId: string, token:any) => {
-    return this.httpClient.put<MovieModel>(environment.apiUrl + `/movies/${movieId}`, movieModel, this.settingHeader(token).httpOptions);
+    return this.httpClient.put<MovieModel>(environment().apiUrl + `/movies/${movieId}`, movieModel, environment(token).httpOptions);
   }
 
   getDeleteMovie = (userId:string, token:any) => {
-    return this.httpClient.delete<MovieModel>(environment.apiUrl + `/movies/${userId}`, this.settingHeader(token).httpOptions);
-  }
-
-  settingHeader = (token:any) => {
-    return {
-      httpOptions : {
-        headers: new HttpHeaders({
-            'Content-Type':  'application/json',
-            'Authorization': 'Bearer ' + token
-        })
-      }
-    };
+    return this.httpClient.delete<MovieModel>(environment().apiUrl + `/movies/${userId}`, environment(token).httpOptions);
   }
 }

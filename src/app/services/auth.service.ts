@@ -16,41 +16,31 @@ import { UserDto } from '../dtos/UserDto';
       private httpClient: HttpClient) { }
 
     postLogin = (userModel: UserModel) => {
-      return this.httpClient.post<TokenDto>(environment.apiUrl + "/auth/signin", userModel);
+      return this.httpClient.post<TokenDto>(environment().apiUrl + "/auth/signin", userModel);
     }
 
     getMyUser = (token:any) => {
-      return this.httpClient.get<UserModel>(environment.apiUrl + "/users/my-account", this.settingHeader(token).httpOptions);
+      return this.httpClient.get<UserModel>(environment().apiUrl + "/users/my-account", environment(token).httpOptions);
     }
 
     getAllUsers = (token:any) => {
-      return this.httpClient.get<UserDto>(environment.apiUrl + "/users", this.settingHeader(token).httpOptions);
+      return this.httpClient.get<UserDto>(environment().apiUrl + "/users", environment(token).httpOptions);
     }
 
     postSignUp = (userModel: UserModel, token:any) => {
-      return this.httpClient.post(environment.apiUrl + "/auth/register", userModel, this.settingHeader(token).httpOptions);
+      return this.httpClient.post(environment().apiUrl + "/auth/register", userModel, environment(token).httpOptions);
     }
 
     putUserById = (userModel: UserModel, userId: string, token:any) => {
-      return this.httpClient.put<UserModel>(environment.apiUrl + `/users/${userId}`, userModel, this.settingHeader(token).httpOptions);
+      return this.httpClient.put<UserModel>(environment().apiUrl + `/users/${userId}`, userModel, environment(token).httpOptions);
     }
 
     getDeleteUser = (userId:string, token:any) => {
-      return this.httpClient.delete<UserModel>(environment.apiUrl + `/users/${userId}`, this.settingHeader(token).httpOptions);
+      return this.httpClient.delete<UserModel>(environment().apiUrl + `/users/${userId}`, environment(token).httpOptions);
     }
 
     putSelfEditById = (userModel: UserModel, token:any) => {
-      return this.httpClient.put<UserModel>(environment.apiUrl + `/users/self-edit`, userModel, this.settingHeader(token).httpOptions);
+      return this.httpClient.put<UserModel>(environment().apiUrl + `/users/self-edit`, userModel, environment(token).httpOptions);
     }
 
-    settingHeader = (token:any) => {
-      return {
-        httpOptions : {
-          headers: new HttpHeaders({
-              'Content-Type':  'application/json',
-              'Authorization': 'Bearer ' + token
-          })
-        }
-      };
-    }
   }

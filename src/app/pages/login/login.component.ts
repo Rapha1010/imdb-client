@@ -21,9 +21,7 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-    if (this.getLocalStorage("token") != null) this.router.navigate(['/dashboard']).then(()=> location.reload());
-  }
+  ngOnInit(): void {}
 
   onSubmit(): void {
 
