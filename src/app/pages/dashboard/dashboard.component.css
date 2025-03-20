@@ -1,0 +1,26 @@
+.estrelas input[type=radio] {
+    display: none;
+  }
+  .estrelas label i.fa:before {
+    content:'\f005';
+    color: #FC0;
+  }
+  .estrelas input[type=radio]:checked ~ label i.fa:before {
+    color: #CCC;
+  }
+
+  .fa {
+    display: inline-block;
+    font: normal normal normal 82px / 1 FontAwesome;
+    font-size: xxx-large;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0, 0);
+}
+
+img {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+}
