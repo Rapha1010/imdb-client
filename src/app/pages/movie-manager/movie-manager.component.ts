@@ -19,7 +19,7 @@ import { UserModel } from '../../models/UserModel';
 })
 export class MovieManagerComponent {
 
-  page = 1;
+  page = 0;
   pageSize = 10;
   filterTerm!: string;
   movieList: Array<MovieModel> = [];
@@ -37,13 +37,15 @@ export class MovieManagerComponent {
   }
 
   getLoggedUser(): void {
-    this.authService.getMyUser(this.getLocalStorage("token")).subscribe((data) => {
-      this.loggedUser = data;
+    if (this.getLocalStorage("token") != null) {
+      this.authService.getMyUser(this.getLocalStorage("token")).subscribe((data) => {
+        this.loggedUser = data;
 
-      if (this.loggedUser?.roles?.some(item => item.name?.toLowerCase().includes("admin"))) {
-        this.isAdmin = true;
-      }
-    });
+        if (this.loggedUser?.roles?.some(item => item.name?.toLowerCase().includes("admin"))) {
+          this.isAdmin = true;
+        }
+      });
+    }
   }
 
   filterMovie($event: Event) {

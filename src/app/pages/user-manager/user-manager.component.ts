@@ -35,16 +35,18 @@ export class UserManagerComponent {
   }
 
   getLoggedUser(): void {
-    this.authService.getMyUser(this.getLocalStorage("token")).subscribe((data) => {
-      this.loggedUser = data;
+    if (this.getLocalStorage("token") != null) {
+      this.authService.getMyUser(this.getLocalStorage("token")).subscribe((data) => {
+        this.loggedUser = data;
 
-      if (this.loggedUser?.roles?.some(item => item.name?.toLowerCase().includes("admin"))) {
-        this.isAdmin = true;
-      }
+        if (this.loggedUser?.roles?.some(item => item.name?.toLowerCase().includes("admin"))) {
+          this.isAdmin = true;
+        }
 
-      if (!this.isAdmin) this.router.navigate(['/dashboard']).then(()=> location.reload());
+        if (!this.isAdmin) this.router.navigate(['/dashboard']).then(()=> location.reload());
 
-    });
+      });
+    }
   }
 
   filterUser($event: Event) {
@@ -60,10 +62,12 @@ export class UserManagerComponent {
   }
 
   loadUsers(): void {
-    this.authService.getAllUsers(this.getLocalStorage("token")).subscribe((data) => {
-        this.userList = data.content;
-        this.userListFiltered =this.userList;
-    });
+    if (this.getLocalStorage("token") != null) {
+      this.authService.getAllUsers(this.getLocalStorage("token")).subscribe((data) => {
+          this.userList = data.content;
+          this.userListFiltered =this.userList;
+      });
+    }
   }
 
   openModel(id: string): void {

@@ -25,14 +25,16 @@ export class ProfileComponent {
   }
 
   getLoggedUser(): void {
-    this.authService.getMyUser(this.getLocalStorage("token")).subscribe((data) => {
-      this.user = data;
+    if (this.getLocalStorage("token") != null) {
+      this.authService.getMyUser(this.getLocalStorage("token")).subscribe((data) => {
+        this.user = data;
 
-      if (this.user?.roles?.some(item => item.name?.toLowerCase().includes("admin"))) {
-        this.isAdmin = true;
-      }
+        if (this.user?.roles?.some(item => item.name?.toLowerCase().includes("admin"))) {
+          this.isAdmin = true;
+        }
 
-    });
+      });
+    }
   }
 
   onClickEdit(data:NgForm): void {
